@@ -5,6 +5,12 @@ const Op = require('sequelize').Op;
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     username: {
       type: DataTypes.STRING,
       validate: {
@@ -43,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
   }, {});
-  User.associate = function(models) {
+  User.associate = function (models) {
     // associations can be defined here
     User.hasMany(models.Image)
     User.hasMany(models.Comment)

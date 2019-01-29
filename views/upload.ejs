@@ -1,0 +1,11 @@
+<%- include('./partials/header')%>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <br>
+    Upload image<input type="file" name="uploadedfile">
+    <br>
+    Description<input type="text" name="description">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<%- include('./partials/footer')%>
