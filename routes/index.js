@@ -18,5 +18,7 @@ router.post('/login', user.login)
 router.get('/logout', user.logout)
 router.get('/user/:username', images.userDisplay)
 router.get('/', homepage.home)
+router.get('/reply/:id', comment.getReply)
+router.post('/reply/:id', user.checkLogin, comment.reply)
 
 module.exports = router

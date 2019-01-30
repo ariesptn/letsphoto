@@ -9,11 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     filename: DataTypes.STRING,
     description: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    views: DataTypes.INTEGER
   }, {});
-  Image.associate = function(models) {
+  Image.associate = function (models) {
     // associations can be defined here
-    Image.belongsToMany(models.Comment, {through: models.ImageComment})
+    Image.belongsToMany(models.Comment, { through: models.ImageComment })
     Image.belongsTo(models.User)
   };
   return Image;

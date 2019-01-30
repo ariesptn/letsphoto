@@ -53,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.hasMany(models.Image)
     User.hasMany(models.ImageComment)
+    User.hasMany(models.CommentReply)
   };
   User.addHook('beforeCreate', (user, options) => {
     return new Promise((resolve, reject) => {
