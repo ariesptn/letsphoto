@@ -24,7 +24,7 @@ class Image {
             })
     }
     static display(req, res) {
-        let imageData
+        let imageData, imageCommentData
         Model.Image.findOne(
             {
                 where: { filename: req.params.filename },
@@ -38,7 +38,13 @@ class Image {
                         include: [Model.Image, Model.Comment, Model.User]
                     })
             })
-            .then(imageCommentData => {
+            .then(data => {
+                imageCommentData = data
+                return Model.Image.update(
+                    { views: imageData.views + 1 || 1 },
+                    { where: { id: imageData.id } })
+            })
+            .then(data => {
                 res.render('image', { imageCommentData, imageData, req })
             })
             .catch(err => {
