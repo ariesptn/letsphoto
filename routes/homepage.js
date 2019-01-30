@@ -14,8 +14,6 @@ class Homepage {
                 res.render('homepage', { imageData, req })
             })
     }
-
 }
-
 
 module.exports = Homepage
