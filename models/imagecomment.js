@@ -8,12 +8,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     ImageId: DataTypes.INTEGER,
-    CommentId: DataTypes.INTEGER
+    CommentId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER
   }, {});
   ImageComment.associate = function(models) {
     // associations can be defined here
     ImageComment.belongsTo(models.Image)
     ImageComment.belongsTo(models.Comment)
+    ImageComment.belongsTo(models.User)
   };
   return ImageComment;
 };

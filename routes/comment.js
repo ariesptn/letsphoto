@@ -27,7 +27,7 @@ class Comment {
             })
             .catch(err => {
                 console.log(err)
-                res.send(err)
+                res.render('error', { err })
             })
     }
 }

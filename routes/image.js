@@ -11,16 +11,16 @@ class Image {
                 return Model.ImageComment.findAll(
                     {
                         where: { ImageId: data.id },
-                        include: [Model.Image, Model.Comment]
+                        include: [Model.Image, Model.Comment, Model.User]
                     })
             })
             .then(imageCommentData => {
                 console.log(imageCommentData)
-                res.render('image', { data: imageCommentData, imageData })
+                res.render('image', { imageCommentData, imageData })
             })
             .catch(err => {
                 console.log(err)
-                res.send(err)
+                res.render('error', { err })
             })
     }
 
@@ -37,8 +37,11 @@ class Image {
         let filename = req.files.uploadedfile.md5()
 
         uploadedfile.mv('./public/uploads/' + filename, function (err) {
-            if (err)
-                return res.status(500).send(err);
+            if (err) {
+                console.log(err)
+                res.render('error', { err })
+                return false
+            }
             Model.Image.create({
                 filename,
                 description: req.body.description
@@ -47,7 +50,8 @@ class Image {
                     res.redirect('/image/' + filename)
                 })
                 .catch(err => {
-                    res.send(err)
+                    console.log(err)
+                    res.render('error', { err })
                 })
         });
     }

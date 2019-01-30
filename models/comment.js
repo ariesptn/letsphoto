@@ -7,13 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    UserId: DataTypes.INTEGER,
     comment: DataTypes.STRING
   }, {});
   Comment.associate = function(models) {
     // associations can be defined here
     Comment.belongsToMany(models.Image, {through: models.ImageComment})
-    Comment.belongsTo(models.User)
   };
   return Comment;
 };
