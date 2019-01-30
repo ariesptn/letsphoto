@@ -6,7 +6,7 @@ const Op = require('sequelize').Op;
 
 class User {
     static getRegister(req, res) {
-        res.render('register')
+        res.render('register', { req })
     }
 
     static register(req, res) {
@@ -20,12 +20,12 @@ class User {
             })
             .catch(err => {
                 console.log(err)
-                res.render('error', { err })
+                res.render('error', { err, req })
             })
     }
 
     static getLogin(req, res) {
-        res.render('login')
+        res.render('login', { req })
     }
     static login(req, res) {
         let userData, compareData
@@ -35,7 +35,6 @@ class User {
                 if (!userData) {
                     throw new Error('wrong username password')
                 } else {
-                    console.log(req.body.password, userData.password)
                     return passwordCompare(req.body.password, userData.password)
                 }
             })
@@ -54,7 +53,7 @@ class User {
             })
             .catch(err => {
                 console.log(err)
-                res.render('error', { err })
+                res.render('error', { err, req })
             })
     }
     static logout(req, res) {

@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   Comment.associate = function (models) {
     // associations can be defined here
     Comment.belongsToMany(models.Image, { through: models.ImageComment })
-    Comment.hasMany(models.Comment)
-    Comment.belongsTo(models.Comment)
+    // Comment.hasMany(models.Comment)
+    // Comment.belongsTo(models.Comment)
   };
   return Comment;
 };
