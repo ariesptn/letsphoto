@@ -3,6 +3,17 @@ const router = express.Router()
 const Model = require('../models')
 
 class Image {
+    static userDisplay(req, res) {
+        let userData, imageData
+        Model.User.findOne({
+            where: { username: req.params.username }
+        })
+            .then(data => { })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err })
+            })
+    }
     static display(req, res) {
         let imageData
         Model.Image.findOne(
