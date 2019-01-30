@@ -56,8 +56,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.addHook('beforeCreate', (user, options) => {
     return new Promise((resolve, reject) => {
-      let plainTextPassword = 'hacktiv8' + user.name
-      return passwordHash(plainTextPassword)
+      return passwordHash(user.password)
         .then(hashedPassword => {
           user.password = hashedPassword
           resolve(hashedPassword)

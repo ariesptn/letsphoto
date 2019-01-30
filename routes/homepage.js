@@ -5,8 +5,10 @@ const passwordCompare = require('../helpers/passwordHash').compare
 const Op = require('sequelize').Op;
 
 class Homepage {
+    static home(req, res) {
+        res.send(req.session)
+    }
 
-    
 }
 
 

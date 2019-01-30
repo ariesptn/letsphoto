@@ -19,7 +19,8 @@ class Comment {
                 console.log(imageData)
                 return Model.ImageComment.create({
                     CommentId: data.id,
-                    ImageId: imageData.id
+                    ImageId: imageData.id,
+                    UserId: req.session.login.id
                 })
             })
             .then(data => {

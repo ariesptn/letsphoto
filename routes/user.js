@@ -35,7 +35,7 @@ class User {
                 if (!userData) {
                     throw new Error('wrong username password')
                 } else {
-                    console.log(req.body.password,userData.password)
+                    console.log(req.body.password, userData.password)
                     return passwordCompare(req.body.password, userData.password)
                 }
             })
@@ -49,6 +49,7 @@ class User {
                         id: userData.id,
                         username: userData.username
                     }
+                    res.redirect('/')
                 }
             })
             .catch(err => {
@@ -56,8 +57,16 @@ class User {
                 res.render('error', { err })
             })
     }
+    static logout(req, res) {
+        req.session.destroy()
+        res.redirect('/')
+    }
     static checkLogin(req, res, next) {
-
+        if (!req.session.login) {
+            res.redirect('/login')
+        } else {
+            next()
+        }
     }
 }
 

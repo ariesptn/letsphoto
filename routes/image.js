@@ -5,7 +5,11 @@ const Model = require('../models')
 class Image {
     static display(req, res) {
         let imageData
-        Model.Image.findOne({ where: { filename: req.params.filename } })
+        Model.Image.findOne(
+            {
+                where: { filename: req.params.filename },
+                include: [Model.User]
+            })
             .then(data => {
                 imageData = data
                 return Model.ImageComment.findAll(
@@ -15,7 +19,6 @@ class Image {
                     })
             })
             .then(imageCommentData => {
-                console.log(imageCommentData)
                 res.render('image', { imageCommentData, imageData })
             })
             .catch(err => {
@@ -44,7 +47,8 @@ class Image {
             }
             Model.Image.create({
                 filename,
-                description: req.body.description
+                description: req.body.description,
+                UserId: req.session.login.id
             })
                 .then(data => {
                     res.redirect('/image/' + filename)
