@@ -1,8 +1,9 @@
-<div>
+
     <% if(!req.session.login){%>
     <a href="/login">Login</a>
     <%}else{%>
     <%=req.session.login.username%> <a href="/logout">Logout</a>
     <a href="/upload">Upload</a>
     <%}%>
-</div>
+
+
