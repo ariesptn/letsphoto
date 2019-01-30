@@ -39,7 +39,6 @@ class Image {
                     })
             })
             .then(imageCommentData => {
-                console.log(imageCommentData[0].Comment)
                 res.render('image', { imageCommentData, imageData, req })
             })
             .catch(err => {
