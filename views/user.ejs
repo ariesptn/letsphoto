@@ -1,5 +1,8 @@
 <%- include('./partials/header')%>
 <%- include('./partials/login')%>
+Images uploaded by :
+<%= userData.username %>
+<br>
 <% imageData.forEach(image=>{ %>
 <a href="/image/<%=image.filename%>"><img src="/uploads/<%=image.filename%>"></a>
 <% }) %>

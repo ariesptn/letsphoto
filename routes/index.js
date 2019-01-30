@@ -16,6 +16,7 @@ router.post('/comment/:filename', user.checkLogin, comment.post)
 router.get('/login', user.getLogin)
 router.post('/login', user.login)
 router.get('/logout', user.logout)
+router.get('/user/:username', images.userDisplay)
 router.get('/', homepage.home)
 
 module.exports = router

@@ -8,10 +8,19 @@ class Image {
         Model.User.findOne({
             where: { username: req.params.username }
         })
-            .then(data => { })
+            .then(data => {
+                userData = data
+                return Model.Image.findAll({
+                    where: { UserId: userData.id }
+                })
+            })
+            .then(data => {
+                imageData = data
+                res.render('user', { imageData, userData, req })
+            })
             .catch(err => {
                 console.log(err)
-                res.render('error', { err })
+                res.render('error', { err, req })
             })
     }
     static display(req, res) {
@@ -30,16 +39,17 @@ class Image {
                     })
             })
             .then(imageCommentData => {
-                res.render('image', { imageCommentData, imageData })
+                console.log(imageCommentData[0].Comment)
+                res.render('image', { imageCommentData, imageData, req })
             })
             .catch(err => {
                 console.log(err)
-                res.render('error', { err })
+                res.render('error', { err, req })
             })
     }
 
     static getUpload(req, res) {
-        res.render('upload')
+        res.render('upload', { req })
     }
 
     static upload(req, res) {
@@ -53,7 +63,7 @@ class Image {
         uploadedfile.mv('./public/uploads/' + filename, function (err) {
             if (err) {
                 console.log(err)
-                res.render('error', { err })
+                res.render('error', { err, req })
                 return false
             }
             Model.Image.create({
@@ -66,7 +76,7 @@ class Image {
                 })
                 .catch(err => {
                     console.log(err)
-                    res.render('error', { err })
+                    res.render('error', { err, req })
                 })
         });
     }

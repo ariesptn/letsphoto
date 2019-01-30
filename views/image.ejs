@@ -3,7 +3,9 @@
 description :
 <%=imageData.description%><br>
 uploaded by :
-<%=imageData.User.username%>
+<a href="/user/<%=imageData.User.username%>">
+    <%=imageData.User.username%>
+</a>
 
 <form action='/comment/<%=imageData.filename%>' method="POST">
     <input type="text" name="comment">
@@ -14,11 +16,18 @@ Comment:<br>
     <% imageCommentData.forEach(imageComment=>{ %>
     <div>
         username :
-        <%=imageComment.User.username %>
+        <a href="/user/<%=imageComment.User.username %>">
+            <%=imageComment.User.username %></a>
     </div>
     <div>
         comment :
         <%=imageComment.Comment.comment %>
+    </div>
+    <div>
+        <form action="/comment/<%=imageData.filename%>/<%=imageComment.id%>/" method="POST">
+            <input type="text" name="comment">
+            <input type="submit" value="Reply">
+        </form>
     </div><br>
     <% }) %>
 </div>
