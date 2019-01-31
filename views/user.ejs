@@ -1,15 +1,3 @@
-<!-- <%- include('./partials/header')%>
-<%- include('./partials/login')%>
-Images uploaded by :
-<%= userData.username %>
-<br>
-<% imageData.forEach(image=>{ %>
-<a href="/image/<%=image.filename%>"><img src="/uploads/<%=image.filename%>"></a>
-<% }) %>
-<%- include('./partials/footer')%> -->
-
-
-
 
 <html>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -114,6 +102,12 @@ Images uploaded by :
       text-align: center;
   }
   
+  #atasnih{
+      background-color: #fff;
+      width:150px;
+      text-align: center;
+
+  }
 
 </style>
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -168,13 +162,17 @@ Images uploaded by :
     <div id="foto">
         <!-- <form action="/search" method="GET">
             <input type="text" name="q" value="<%=req.query.q%>">
-            <input type="submit" value='Search'> -->
-        <div>
+         
+           <input type="submit" value='Search'> -->
+        <center>
+           <div id="atasnih">
         Images uploaded by :
         <br>
         <%= userData.username %>
         <br>
     </div>
+</center>
+<br>
         </form>
         <% imageData.forEach(image=>{ %>
 
