@@ -8,7 +8,10 @@ class Homepage {
 
     static home(req, res) {
         let imageData
-        Model.Image.findAll({ order: [['createdAt', 'DESC']] })
+        Model.Image.findAll({
+            order: [['createdAt', 'DESC']],
+            include: [Model.User]
+        })
             .then(data => {
                 imageData = data
                 res.render('homepage', { imageData, req })
@@ -21,8 +24,11 @@ class Homepage {
     static search(req, res) {
         let imageData
         Model.Image.findAll(
-            { where: { description: { [Op.like]: `%${req.query.q}%` } } },
-            { order: [['createdAt', 'DESC']] })
+            {
+                where: { description: { [Op.like]: `%${req.query.q}%` } },
+                order: [['createdAt', 'DESC']],
+                include: [Model.User]
+            })
             .then(data => {
                 imageData = data
                 res.render('homepage', { imageData, req })
