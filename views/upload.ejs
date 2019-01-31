@@ -1,4 +1,4 @@
-<%- include('./partials/header')%>
+<!-- <%- include('./partials/header')%>
 <form action="/upload" method="POST" enctype="multipart/form-data">
     <br>
     Upload image<input type="file" name="uploadedfile">
@@ -8,4 +8,76 @@
     <input type="submit" value="Submit">
 </form>
 
-<%- include('./partials/footer')%>
+<%- include('./partials/footer')%> -->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title></title>
+
+		<!-- Google web fonts -->
+		<link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+
+		<!-- The main CSS file -->
+        <link href="assets/css/style.css" rel="stylesheet" />
+        <script src="app.js"></script>
+        
+<style>
+#drop input{
+    display: flex;
+}
+</style>
+	</head>
+	<body>
+
+		<form id="upload" method="post" action="/upload" enctype="multipart/form-data">
+			<div id="drop">
+				<!-- Drop Here -->
+                
+                <!-- <a onclick="$('#upBtn').click()">Browse</a> -->
+                <input type="file" name="uploadedfile" id="upBtn" >
+                <!-- <input type="file" name="uploadedfile"> -->
+			</div>
+
+			<ul>
+                <!-- The file uploads will be shown here -->
+			</ul>
+            <br>
+            Description 
+            <input type="text" name="description">
+            <br><br>
+            <input type="submit" name="Submit" multiple />
+            <!-- <div id=""> -->
+                <!-- <a>Submit</a> -->
+            
+            <!-- </div> -->
+		</form>
+
+		<!-- <footer> -->
+            <!-- <h2><a href="http://tutorialzine.com/2013/05/mini-ajax-file-upload-form/"><i>Tutorial:</i> Mini Ajax File Upload Form</a></h2> -->
+            <!-- <div id="tzine-actions">
+            	
+	            <a id="tzine-download" href="http://tutorialzine.com/2013/05/mini-ajax-file-upload-form/" title="Download This Example!">Download</a>
+            </div> -->
+        <!-- </footer> -->
+        
+		<!-- JavaScript Includes -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="assets/js/jquery.knob.js"></script>
+
+		<!-- jQuery File Upload Dependencies -->
+		<script src="assets/js/jquery.ui.widget.js"></script>
+		<script src="assets/js/jquery.iframe-transport.js"></script>
+		<script src="assets/js/jquery.fileupload.js"></script>
+		
+		<!-- Our main JS file -->
+		<!-- <script src="assets/js/script.js"></script> -->
+
+
+		<!-- Only used for the demos. Please ignore and remove. --> 
+        <script src="http://cdn.tutorialzine.com/misc/enhance/v1.js" async></script>
+
+	</body>
+</html>
