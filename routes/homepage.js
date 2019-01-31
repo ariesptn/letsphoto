@@ -5,29 +5,18 @@ const passwordCompare = require('../helpers/passwordHash').compare
 const Op = require('sequelize').Op;
 
 class Homepage {
-
     static home(req, res) {
         let imageData
-        Model.Image.findAll({
-            order: [['createdAt', 'DESC']],
-            include: [Model.User]
-        })
-            .then(data => {
-                imageData = data
-                res.render('homepage', { imageData, req })
-            })
-            .catch(err => {
-                console.log(err)
-                res.render('error', { err, req })
-            })
-    }
-    static search(req, res) {
-        let imageData
+        let searchQuery = req.query.q || ''
+        let limit = 10
+        let offset = req.query.page || '1'
+        offset = (offset - 1) * 10
         Model.Image.findAll(
             {
-                where: { description: { [Op.like]: `%${req.query.q}%` } },
+                where: { description: { [Op.like]: `%${searchQuery}%` } },
                 order: [['createdAt', 'DESC']],
-                include: [Model.User]
+                include: [Model.User],
+                limit, offset
             })
             .then(data => {
                 imageData = data
