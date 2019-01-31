@@ -173,7 +173,7 @@
         <br>
         <div id="nextbut">
                 <% let page=req.query.page||'1' %>
-        <%if(req.query.page!=='1'){%>
+        <%if(page!=='1'){%>
         <a href="/search?q=<%=req.query.q%>&page=<%=parseInt(page)-1%>">Prev</a>
         <%}%>
         <%if(imageData.length===10){%>

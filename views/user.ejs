@@ -190,7 +190,7 @@
         <div id="nextbut">
             <% let page=req.query.page||'1' %>
             
-                <%if(req.query.page!=='1'){%>
+                <%if(page!=='1'){%>
                 <a href="/user/<%= userData.username %>?page=<%=parseInt(page)-1%>">Prev</a>
                 <%}%>
                 <%if(imageData.length===10){%>
