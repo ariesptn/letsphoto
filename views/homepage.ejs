@@ -7,8 +7,8 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <body>
-<style>
-body{
+    <style>
+        body{
     background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg');
     padding:50px;
 }
@@ -102,59 +102,70 @@ body{
   
 
 </style>
-<nav class="navbar navbar-default navbar-inverse" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/" >LetsPhoto</a>
-    </div>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">LetsPhoto</a>
+            </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home</a></li>
-    </ul>
-    <ul class="nav navbar-nav">
-        <li class="active"><a href="//instagram.com">Share</a></li>
-    </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <% if(!req.session.login){%>    
-            <li><p class="navbar-text">Already have an account?</p></li> 
-        <li class="dropdown">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="//instagram.com">Share</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <% if(!req.session.login){%>
+                    <li>
+                        <p class="navbar-text">Already have an account?</p>
+                    </li>
+                    <li class="dropdown">
 
-                <!-- <a href="/login">Login</a> -->
-          <a href="/login" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="active"></span></a>
-          <%}else{%>
-            <li>
-             <!-- <a href="/logout">Logout</a> -->
-            <!-- <a href="/upload">Upload</a> -->
-            <li><p class="navbar-text"><%=req.session.login.username%></p></li>
-            <li><a href="/logout" class="dropdown-toggle" data-toggle="collapse"><b>Logout</b> <span class="active"></span></a></li>
-            <li><a href="/upload" class="dropdown-toggle" data-toggle="collapse"><b>Upload</b> <span class="active"></span></a></li>
+                        <!-- <a href="/login">Login</a> -->
+                        <a href="/login" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="active"></span></a>
+                        <%}else{%>
+                    <li>
+                        <!-- <a href="/logout">Logout</a> -->
+                        <!-- <a href="/upload">Upload</a> -->
+                    <li>
+                        <p class="navbar-text">
+                            <%=req.session.login.username%>
+                        </p>
+                    </li>
+                    <li><a href="/logout" class="dropdown-toggle" data-toggle="collapse"><b>Logout</b> <span class="active"></span></a></li>
+                    <li><a href="/upload" class="dropdown-toggle" data-toggle="collapse"><b>Upload</b> <span class="active"></span></a></li>
 
-            <%}%>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-</div><!-- /.container-fluid -->
-</nav>
+                    <%}%>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
-
-<div id="foto">
-    <% imageData.forEach(image=>{ %>
+    <div id="foto">
+        <form action="/search" method="GET">
+            <input type="text" name="q" value="<%=req.query.q%>">
+            <input type="submit" value='Search'>
+        </form>
+        <% imageData.forEach(image=>{ %>
 
         <div class="thumbnail">
-        <!-- <h2>Tes</h2> -->
-  <a href="/image/<%=image.filename%>"><img src="/uploads/<%=image.filename%>"></a>
-  <span><%= image.description%></span>
-</div>
-  <% }) %>
-  
-</div>
+            <!-- <h2>Tes</h2> -->
+            <a href="/image/<%=image.filename%>"><img src="/uploads/<%=image.filename%>"></a>
+            <span>
+                <%=image.User.username %> :
+                <%= image.description%></span>
+        </div>
+        <% }) %>
+
+    </div>
 </body>
