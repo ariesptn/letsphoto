@@ -108,6 +108,9 @@
       text-align: center;
 
   }
+  #nextbut{
+      background-color: #fff
+  }
 
 </style>
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -184,6 +187,16 @@
                 <%= image.description%></span> -->
         </div>
         <% }) %>
+        <div id="nextbut">
+            <% let page=req.query.page||'1' %>
+            
+                <%if(req.query.page!=='1'){%>
+                <a href="/user/<%= userData.username %>?page=<%=parseInt(page)-1%>">Prev</a>
+                <%}%>
+                <%if(imageData.length===10){%>
+                <a href="/user/<%= userData.username %>?page=<%=parseInt(page)+1%>">Next</a>
+                <%}%>
+            </div>
 
     </div>
 </body>
