@@ -1,0 +1,9 @@
+<%- include('./partials/header')%>
+<img src="/uploads/<%=imageData.filename%>"><br>
+
+<form action='/image/<%=imageData.filename%>/edit' method="POST">
+    Description : <input type="text" name="description" value="<%=imageData.description%>">
+    <input type="submit" value="Post">
+</form>
+
+<%- include('./partials/footer')%>

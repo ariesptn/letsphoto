@@ -27,7 +27,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [6, 256],
+          msg: 'password is too short'
+        }
+      }
+    },
     email: {
       type: DataTypes.STRING,
       validate: {
@@ -36,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Invalid email'
         },
         isUnique(value) {
-          return User.findAll({ where: { [Op.and]: [{ email: value }, { id: { [Op.not]: this.id } }] } })
+          return User.findAll({ where: { [Op.and]: [{ email: value }, { username: { [Op.not]: this.username } }] } })
             .then(data => {
               if (data.length > 0) {
                 throw new Error('email is already registered')
@@ -56,6 +64,18 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.CommentReply)
   };
   User.addHook('beforeCreate', (user, options) => {
+    return new Promise((resolve, reject) => {
+      return passwordHash(user.password)
+        .then(hashedPassword => {
+          user.password = hashedPassword
+          resolve(hashedPassword)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  })
+  User.addHook('beforeUpdate', (user, options) => {
     return new Promise((resolve, reject) => {
       return passwordHash(user.password)
         .then(hashedPassword => {

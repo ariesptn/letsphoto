@@ -10,6 +10,12 @@ class User {
     }
 
     static register(req, res) {
+        if (req.body.password !== req.body.confirmpassword) {
+            let err = new Error('password and confirm password is different')
+            console.log(err)
+            res.render('error', { err, req })
+            return false
+        }
         Model.User.create({
             username: req.body.username,
             password: req.body.password,
@@ -39,17 +45,15 @@ class User {
                 }
             })
             .then(data => {
-                console.log('asdklfj ' + data)
                 compareData = data
                 if (!compareData) {
                     throw new Error('wrong username password')
-                } else {
-                    req.session.login = {
-                        id: userData.id,
-                        username: userData.username
-                    }
-                    res.redirect('/')
                 }
+                req.session.login = {
+                    id: userData.id,
+                    username: userData.username
+                }
+                res.redirect('/')
             })
             .catch(err => {
                 console.log(err)
@@ -66,6 +70,58 @@ class User {
         } else {
             next()
         }
+    }
+    static getUpdate(req, res) {
+        Model.User.findOne({ where: { id: req.session.login.id } })
+            .then(userData => {
+                res.render('user-edit', { userData, req })
+            })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err, req })
+            })
+    }
+
+    static emailUpdate(req, res) {
+        let newData = {
+            email: req.body.email
+        }
+        Model.User.update(newData,
+            { where: { id: req.session.login.id } })
+            .then(data => {
+                res.redirect('/')
+            })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err, req })
+            })
+    }
+
+    static passwordUpdate(req, res) {
+        let userData
+        Model.User.findOne({ where: { id: req.session.login.id } })
+            .then(data => {
+                userData = data
+                if (req.body.password !== req.body.confirmpassword) {
+                    throw new Error('password and confirm password is different')
+                }
+                return passwordCompare(req.body.oldpassword, userData.password)
+            })
+            .then(compareData => {
+                if (!compareData) {
+                    throw new Error('wrong password')
+                }
+                userData.update(
+                    { password: req.body.password },
+                    { where: { id: req.session.login.id } })
+            })
+            .then(data => {
+                res.redirect('/')
+            })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err, req })
+            })
     }
 }
 

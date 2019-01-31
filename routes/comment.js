@@ -31,6 +31,7 @@ class Comment {
                 res.render('error', { err, req })
             })
     }
+
     static getReply(req, res) {
         Model.CommentReply.findAll({
             where: { CommentId: req.params.id },

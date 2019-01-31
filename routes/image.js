@@ -1,10 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const Model = require('../models')
+const Op = require('sequelize').Op;
 
 class Image {
     static userDisplay(req, res) {
         let userData, imageData
+        let limit = 10
+        let offset = req.query.page || '1'
+        offset = (offset - 1) * 10
         Model.User.findOne({
             where: { username: req.params.username }
         })
@@ -13,7 +17,8 @@ class Image {
                 return Model.Image.findAll({
                     where: { UserId: userData.id },
                     order: [['createdAt', 'DESC']],
-                    include: [Model.User]
+                    include: [Model.User],
+                    limit, offset
                 })
             })
             .then(data => {
@@ -92,6 +97,55 @@ class Image {
                     res.render('error', { err, req })
                 })
         });
+    }
+    static getUpdate(req, res) {
+        let filename = req.params.filename
+        Model.Image.findOne({ where: { filename } })
+            .then(imageData => {
+                if (req.session.login.id !== imageData.UserId) {
+                    throw new Error('You have no permission to edit')
+                }
+                res.render('image-edit', { imageData, req })
+            })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err, req })
+            })
+    }
+
+    static update(req, res) {
+        let filename = req.params.filename
+        Model.Image.findOne({ where: { filename } })
+            .then(data => {
+                if (req.session.login.id !== data.UserId) {
+                    throw new Error('You have no permission to edit')
+                }
+                return Model.Image.update({
+                    description: req.body.description
+                }, { where: { filename } })
+            })
+            .then(data => {
+                res.redirect('/image/' + filename)
+            })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err, req })
+            })
+    }
+
+    static delete(req, res) {
+        let filename = req.params.filename
+        Model.Image.findOne({ where: { filename } })
+            .then(data => {
+                if (req.session.login.id !== data.UserId) {
+                    throw new Error('You have no permission to delete')
+                }
+                throw new Error('Image deletion is not implemented yet')
+            })
+            .catch(err => {
+                console.log(err)
+                res.render('error', { err, req })
+            })
     }
 }
 
