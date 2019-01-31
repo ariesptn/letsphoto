@@ -63,6 +63,43 @@ body{
         border-top:0 none;
     }
 }
+.thumbnail {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    display:inline-flex;
+    padding: 0%
+  }
+  .thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+  }
+  .thumbnail img.portrait {
+    width: 100%;
+    height: auto;
+  }
+  .thumbnail span{
+      z-index: 50;
+      font-size: 2em;
+      text-align: center;
+      background-color: rgba(240, 240, 240, 0.5);
+      width: 100%;
+      height: 2em;
+      margin-top: 157px;
+      
+  }
+  
+  #foto{
+      text-align: center;
+  }
+  
 
 </style>
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -109,10 +146,15 @@ body{
 </nav>
 
 
+<div id="foto">
+    <% imageData.forEach(image=>{ %>
 
-</body>
-
-<% imageData.forEach(image=>{ %>
+        <div class="thumbnail">
+        <!-- <h2>Tes</h2> -->
   <a href="/image/<%=image.filename%>"><img src="/uploads/<%=image.filename%>"></a>
+  <span><%= image.description%></span>
+</div>
   <% }) %>
   
+</div>
+</body>
