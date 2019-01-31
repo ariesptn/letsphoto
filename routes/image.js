@@ -12,7 +12,8 @@ class Image {
                 userData = data
                 return Model.Image.findAll({
                     where: { UserId: userData.id },
-                    order: [['createdAt', 'DESC']]
+                    order: [['createdAt', 'DESC']],
+                    include: [Model.User]
                 })
             })
             .then(data => {
