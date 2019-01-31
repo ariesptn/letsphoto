@@ -1,3 +1,4 @@
+<html>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -126,7 +127,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!req.session.login){%>
                     <li>
-                        <p class="navbar-text">Already have an account?</p>
+                        <p class="navbar-text"><a href="/register">Already have an account?</a></p>
                     </li>
                     <li class="dropdown">
 
@@ -169,3 +170,4 @@
 
     </div>
 </body>
+</html>
