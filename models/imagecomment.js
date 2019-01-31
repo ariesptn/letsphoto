@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     CommentId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {});
-  ImageComment.associate = function(models) {
+  ImageComment.associate = function (models) {
     // associations can be defined here
     ImageComment.belongsTo(models.Image)
     ImageComment.belongsTo(models.Comment)

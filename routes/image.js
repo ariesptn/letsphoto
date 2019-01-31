@@ -11,7 +11,8 @@ class Image {
             .then(data => {
                 userData = data
                 return Model.Image.findAll({
-                    where: { UserId: userData.id }
+                    where: { UserId: userData.id },
+                    order: [['createdAt', 'DESC']]
                 })
             })
             .then(data => {
@@ -28,14 +29,15 @@ class Image {
         Model.Image.findOne(
             {
                 where: { filename: req.params.filename },
-                include: [Model.User]
+                include: [Model.User],
             })
             .then(data => {
                 imageData = data
                 return Model.ImageComment.findAll(
                     {
                         where: { ImageId: data.id },
-                        include: [Model.Image, Model.Comment, Model.User]
+                        include: [Model.Image, Model.Comment, Model.User],
+                        order: [['createdAt', 'DESC']]
                     })
             })
             .then(data => {
@@ -63,7 +65,12 @@ class Image {
         }
 
         let uploadedfile = req.files.uploadedfile;
-        let filename = req.files.uploadedfile.md5()
+        let filename = req.files.uploadedfile.md5() + parseInt(Math.random() * 1000).toString()
+        if (!req.files.uploadedfile.mimetype.includes('image')) {
+            let err = new Error('not an image file')
+            res.render('error', { err, req })
+            return false
+        }
 
         uploadedfile.mv('./public/uploads/' + filename, function (err) {
             if (err) {
