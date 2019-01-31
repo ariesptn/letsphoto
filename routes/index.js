@@ -29,4 +29,9 @@ router.post('/account/email', user.checkLogin, user.emailUpdate)
 router.post('/account/password', user.checkLogin, user.passwordUpdate)
 router.get('/', homepage.home)
 
+router.get('/*', (req, res) => {
+    let err = new Error('Page not found')
+    res.render('error', { err, req })
+})
+
 module.exports = router
