@@ -13,7 +13,7 @@ class Homepage {
         offset = (offset - 1) * 10
         Model.Image.findAll(
             {
-                where: { description: { [Op.like]: `%${searchQuery}%` } },
+                where: { description: { [Op.iLike]: `%${searchQuery}%` } },
                 order: [['createdAt', 'DESC']],
                 include: [Model.User],
                 limit, offset
