@@ -11,13 +11,14 @@ app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('public'))
+//app.use('/file', express.static('public/uploads'))
 app.use(fileUpload());
 app.use(session({ secret: Math.random().toString() }))
 
 app.use('/', routes)
 
 model.sequelize.sync().then(function () {
-   app.listen(app.get('port'), function () {
+    app.listen(app.get('port'), function () {
         console.log('Express server listening on port ' + app.get('port'));
     });
 });
