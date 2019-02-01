@@ -170,9 +170,13 @@
     
     <div id="columnComment">
     description :
+    <%=imageData.description%><br>
     <br>
     <a href="/image/<%=imageData.filename%>/edit">edit</a>
-    <%=imageData.description%><br>
+    <br>
+    created at :
+    <%= imageComment.Comment.createdAt.toISOString().split("T").join(' ').split('.')[0] %>
+    <br>
     uploaded by :
     <a href="/user/<%=imageData.User.username%>">
         <%=imageData.User.username%>
